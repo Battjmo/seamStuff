@@ -14,6 +14,8 @@ console.log(someLock.capabilities_supported);
 // unlock the lock if it is locked or to lock it if it is unlocked.
 if (someLock.properties.locked) {
   await seam.locks.unlockDoor({ device_id: someLock.device_id });
+  console.log("unlocked");
 } else {
   await seam.locks.lockDoor({ device_id: someLock.device_id });
+  console.log("locked");
 }
