@@ -25,16 +25,15 @@ const main = async () => {
     const sourceStream = createReadStream(
       "/Users/thelampshade/Desktop/Work/dvdrental/3055.csv",
     );
-    const result = await pipeline(sourceStream, ingestStream);
-    console.log(result);
+    await pipeline(sourceStream, ingestStream);
   } catch (e) {
     console.log(e);
   } finally {
+    client.release();
   }
 
   const result = await sqlClient.query(`SELECT * FROM public.customer`);
   console.log(result);
-  client.release();
   await sqlClient.end();
 };
 
