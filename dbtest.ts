@@ -7,7 +7,6 @@ import { pipeline } from "node:stream/promises";
 
 const main = async () => {
   const { Pool } = pg;
-  console.log(process.env.POSTGRES_CONNECTION_STRING);
   const sqlClient = new Pool({
     connectionString: process.env.POSTGRES_CONNECTION_STRING,
     ssl: {
@@ -35,8 +34,8 @@ const main = async () => {
 
   const result = await sqlClient.query(`SELECT * FROM public.customer`);
   console.log(result);
-  await sqlClient.end();
   client.release();
+  await sqlClient.end();
 };
 
 main();
