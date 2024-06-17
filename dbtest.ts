@@ -1,11 +1,13 @@
 import pg from "pg";
 import { readFileSync, createReadStream } from "node:fs";
+import "dotenv/config";
 
 import { from as copyFrom } from "pg-copy-streams";
 import { pipeline } from "node:stream/promises";
 
 const main = async () => {
   const { Pool } = pg;
+  console.log(process.env.POSTGRES_CONNECTION_STRING);
   const sqlClient = new Pool({
     connectionString: process.env.POSTGRES_CONNECTION_STRING,
     ssl: {
@@ -29,7 +31,6 @@ const main = async () => {
   } catch (e) {
     console.log(e);
   } finally {
-
   }
 
   const result = await sqlClient.query(`SELECT * FROM public.customer`);
